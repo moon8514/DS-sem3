@@ -15,7 +15,7 @@ void destroyList(struct node **head, int *count);//
 void removeDuplicate(struct node **head, int *count);
 void copyList(struct node *head1, int count1, struct node **head2, int *count2);
 void append(struct node **head1, int *count1,  struct node *head2);
-
+void reverseList(struct node **head1, int count);
 int main()
 {
 	struct node *head1;
@@ -52,8 +52,11 @@ int main()
 	printf("\n");
 	append(&head1, &count1, head2);
 	printList(head1);
+	printf("\n");
 	
-	
+	reverseList(&head2, count2);
+	printf("Reverse list 2:");
+	printList(head2);
 }
 
 void init(struct node **head, int *count)
@@ -248,6 +251,22 @@ void append(struct node **head1, int *count1, struct node *head2)
 	}
 }
 
+void reverseList(struct node **head, int count)
+{
+	struct node *cur = *head;
+	int countTemp = count;
+	for(int i=0; i<countTemp; i++)
+	{
+		insert(head, cur->item, 0, &count);
+		cur = cur->next;
+	}
+	
+	int delPosition = countTemp;
+	for(int i=0; i<count; i++)
+	{
+		del(head, delPosition, &count);
+	}
+}
 
 
 
