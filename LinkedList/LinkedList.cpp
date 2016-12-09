@@ -11,7 +11,7 @@ void insert(struct node **head, int item, int index, int *count);//
 void del(struct node **head, int index, int *count);//
 bool isEmpty(struct node *head);//
 void printList(struct node *head);//
-void destroyList(struct node **head, int *count);
+void destroyList(struct node **head, int *count);//
 void removeDuplicate(struct node **head, int *count);
 void copyList(struct node *head1, int count1, struct node **head2, int *count2);
 
@@ -26,19 +26,10 @@ int main()
 	printList(head1);
 	printf("\n");
 	
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
-	del(&head1, 0, &count1);
+	destroyList(&head1, &count1);
 	
+	printf("%d", isEmpty(head1));
 	printList(head1);
-	printf("%d\n", isEmpty(head1));
 
 }
 
@@ -104,6 +95,20 @@ void printList(struct node *head)
 		printf("%d ", cur->item);
 		cur = cur->next;
 	}
+}
+
+void destroyList(struct node **head, int *count)
+{
+	struct node *cur = *head;
+	while((*head) != NULL)
+	{
+		*head = (*head)->next;
+		free(cur);
+		cur = *head;
+	}
+	(*count) = 0;
+	
+//	while(*head != NULL) del(head, 0, count);
 }
 
 
