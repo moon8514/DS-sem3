@@ -14,6 +14,7 @@ void printList(struct node *head);//
 void destroyList(struct node **head, int *count);//
 void removeDuplicate(struct node **head, int *count);
 void copyList(struct node *head1, int count1, struct node **head2, int *count2);
+void append(struct node **head1, int *count1,  struct node *head2);
 
 int main()
 {
@@ -37,12 +38,22 @@ int main()
 	
 	removeDuplicate(&head1, &count1);
 	
-	printList(head1);
+//	printList(head1);
 	printf("\n");
 	
-	printf("Danh sach trong(0/1) :%d", isEmpty(head1));
 //	printList(head1);
 
+	struct node *head2;
+	int count2;
+	init(&head2, &count2);
+	copyList(head1, count1, &head2, &count2);
+	printList(head2);
+	
+	printf("\n");
+	append(&head1, &count1, head2);
+	printList(head1);
+	
+	
 }
 
 void init(struct node **head, int *count)
@@ -172,9 +183,71 @@ void removeDuplicate(struct node **head, int *count)
 			cur = cur->next;
 			curNext = cur->next;
 		}
-	}
-	
+	}	
 }
+
+
+void copyList(struct node *head1, int count1, struct node **head2, int *count2)
+{
+	struct node *cur1, *cur2;
+	
+	cur1 = head1;
+	
+	while(cur1 != NULL)
+	{
+		struct node *newNode = (struct node *) malloc (sizeof(struct node));
+		newNode->item = cur1->item; 
+		newNode->next = NULL;
+		
+		if((*head2) == NULL){
+			*head2 = newNode;
+			cur2 = *head2;
+		} 
+		else
+		{
+			cur2->next = newNode;
+			cur2 = cur2->next;
+		}
+		cur1 = cur1->next;		
+	}
+	(*count2) = count1;
+}
+
+/*
+void copyList(struct node *head1, int count1, struct node **head2, int *count2)
+{
+	struct node *cur1, *cur2;
+	
+	cur1 = head1;
+	
+	while(cur1 != NULL)
+	{
+		insert(head2, cur1->item, *count2, count2);
+		cur1 = cur1->next;
+	}
+}
+*/
+
+void append(struct node **head1, int *count1, struct node *head2)
+{
+	struct node *cur1, *cur2;
+	
+	cur1 = *head1;
+	cur2 = head2;
+	
+	while(cur1->next != NULL) cur1 = cur1->next;
+	while(cur2 != NULL)
+	{
+		struct node *newNode = (struct node *) malloc (sizeof(struct node));
+		newNode->item = cur2->item;
+		newNode->next = NULL;
+		cur1->next = newNode;
+		cur1 = cur1->next;
+		(*count1)++;
+		cur2 = cur2->next;
+	}
+}
+
 
 
 
