@@ -22,14 +22,26 @@ int main()
 	init(&head1, &count1);
 //	printf("%d\n", isEmpty(head1));
 	
-	for(int i=0; i<10; i++) insert(&head1, i, i, &count1);
+//	for(int i=0; i<10; i++) insert(&head1, i, i, &count1);
+	insert(&head1, 4, 0, &count1);
+	insert(&head1, 4, 0, &count1);
+	insert(&head1, 3, 0, &count1);
+	insert(&head1, 3, 0, &count1);
+	insert(&head1, 3, 0, &count1);
+	insert(&head1, 2, 0, &count1);
+	insert(&head1, 2, 0, &count1);
+	insert(&head1, 1, 0, &count1);
+	insert(&head1, 1, 0, &count1);
+	insert(&head1, 1, 0, &count1);
+	insert(&head1, 1, 0, &count1);
+	
+	removeDuplicate(&head1, &count1);
+	
 	printList(head1);
 	printf("\n");
 	
-	destroyList(&head1, &count1);
-	
-	printf("%d", isEmpty(head1));
-	printList(head1);
+	printf("Danh sach trong(0/1) :%d", isEmpty(head1));
+//	printList(head1);
 
 }
 
@@ -109,6 +121,59 @@ void destroyList(struct node **head, int *count)
 	(*count) = 0;
 	
 //	while(*head != NULL) del(head, 0, count);
+}
+
+/*
+void removeDuplicate(struct node **head, int *count)
+{
+	int index;;
+	struct node *cur, *curNext;
+	
+	index = 0;
+	cur = *head;
+	curNext = cur->next;
+	
+	while(curNext != NULL)
+	{
+		if(cur->item == curNext->item)
+		{
+			curNext = curNext->next;
+			del(head, index+1, count);
+		}
+		else
+		{
+			cur = cur->next;
+			curNext = cur->next;
+			index++;	
+		}
+	}
+	
+}
+*/
+
+void removeDuplicate(struct node **head, int *count)
+{
+	struct node *cur, *curNext;
+	
+	cur = *head;
+	curNext = cur->next;
+	
+	while(curNext != NULL)
+	{
+		if(cur->item == curNext->item)
+		{
+			cur->next = curNext->next;		
+			free(curNext);
+			curNext = cur->next;
+			(*count)--;
+		}
+		else
+		{
+			cur = cur->next;
+			curNext = cur->next;
+		}
+	}
+	
 }
 
 
