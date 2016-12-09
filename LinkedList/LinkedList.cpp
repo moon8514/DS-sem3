@@ -12,7 +12,7 @@ void del(struct node **head, int index, int *count);//
 bool isEmpty(struct node *head);//
 void printList(struct node *head);//
 void destroyList(struct node **head, int *count);//
-void removeDuplicate(struct node **head, int *count);//
+void removeDuplicate(struct node **head, int *count);//loi loi loi
 void copyList(struct node *head1, int count1, struct node **head2, int *count2);//
 void append(struct node **head1, int *count1,  struct node *head2);//
 void reverseList(struct node **head1, int count);//
@@ -38,7 +38,19 @@ int main()
 	insert(&head1, 1, 0, &count1);
 	insert(&head1, 1, 0, &count1);
 	insert(&head1, 1, 0, &count1);
-	
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	del(&head1, count1-1, &count1);
+	insert(&head1, 1, 0, &count1);
+	printList(head1);
 	removeDuplicate(&head1, &count1);
 	
 //	printList(head1);

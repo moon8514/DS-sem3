@@ -1,5 +1,5 @@
-#include<iostream>
-
+#include<stdio.h>
+#include<stdlib.h>
 struct node
 {
 	int data;
@@ -11,7 +11,8 @@ void init(struct node **root);
 struct node* find(int data, struct node *root);
 void insert(int data, struct node **root);
 void NoLR(struct node *root);
-void del(int data, struct node *root);
+void del(int data, struct node **root);
+struct node * findMax(struct node *root);
 
 int main()
 {
@@ -29,6 +30,8 @@ int main()
 	insert(100, &tree);
 	insert(7, &tree);
 	insert(8, &tree);
+	
+	del(4, &tree);
 	
 	NoLR(tree);
 
@@ -73,9 +76,47 @@ void insert(int data, struct node **root)
 	}
 }
 
-void del(int data, struct node *root)
+void del(int data, struct node **root)
 {
-		
+	if(*root == NULL) printf("Eo found anything");
+	else if((*root)->data > data)
+	{
+		del(data, &((*root)->left));
+	}
+	else if((*root)->data < data)
+	{
+		del(data, &((*root)->right));
+	}
+	else // found node contain data DATA
+	{
+		if((*root)->left && (*root)->right)
+		{
+			struct node *temp = (*root)->left;
+			temp = findMax(temp);
+			(*root)->data = temp->data;
+			del(temp->data, &temp);
+		}
+		else  //node la' hoac co 1 node con
+		{
+			struct node *temp = *root;
+			printf("%d", temp->data);
+			if((*root)->left != NULL)
+			{
+				*root = (*root)->left;
+			}
+			else if((*root)->right != NULL)
+			{
+				*root = (*root)->right;
+			}
+			free(temp);
+		}
+	}
+}
+
+struct node * findMax(struct node *root)
+{
+	if(root->right != NULL) root = root->right;
+	return root;
 }
 
 void NoLR(struct node *root)
