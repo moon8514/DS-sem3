@@ -12,8 +12,10 @@ struct node* find(int data, struct node *root);
 void insert(int data, struct node **root);
 void NoLR(struct node *root);
 void del(int data, struct node **root);
-struct node * findMax(struct node *root);
 
+struct node * findMax(struct node *root);
+struct node * find(int data, struct node *root);
+struct node * findParent(int data, struct node *root);
 int main()
 {
 	struct node *tree;
@@ -30,10 +32,11 @@ int main()
 	insert(100, &tree);
 	insert(7, &tree);
 	insert(8, &tree);
-	
-	del(4, &tree);
-	
+//	printf("%d", findMax(tree)->data);
+//	NoLR(tree);
+	del(6, &tree);
 	NoLR(tree);
+	
 
 
 }
@@ -53,6 +56,33 @@ struct node* find(int data, struct node *root)
 	else if(root->data = data) return root;
 }
 
+
+struct node * findParent(int data, struct node *root)
+{
+	struct node *par = NULL, *child = root;
+	
+	if(root == NULL) return NULL;
+	
+	while(child!=NULL)
+	{
+		if(child->data > data)
+		{
+			par = child;
+			child = child->left;
+		}
+		else if(child->data < data)
+		{
+			par = child;
+			child = child->right;
+		}
+		else if(child->data == data)
+		{
+			return par;
+		}
+		else return NULL;
+	}
+}
+
 void insert(int data, struct node **root)
 {
 	if((*root) == NULL)
@@ -70,7 +100,7 @@ void insert(int data, struct node **root)
 	{
 		insert(data, &((*root)->right));
 	}
-	else if((*root)->data = data)
+	else if((*root)->data == data)
 	{
 		printf("Data already in tree!\n");
 	}
@@ -99,14 +129,13 @@ void del(int data, struct node **root)
 		else  //node la' hoac co 1 node con
 		{
 			struct node *temp = *root;
-			printf("%d", temp->data);
-			if((*root)->left != NULL)
-			{
-				*root = (*root)->left;
-			}
-			else if((*root)->right != NULL)
+			if((*root)->left == NULL)
 			{
 				*root = (*root)->right;
+			}
+			else if((*root)->right == NULL)
+			{
+				*root = (*root)->left;
 			}
 			free(temp);
 		}
@@ -115,9 +144,10 @@ void del(int data, struct node **root)
 
 struct node * findMax(struct node *root)
 {
-	if(root->right != NULL) root = root->right;
-	return root;
+	if(root->right != NULL) return findMax(root->right);
+	else return root;
 }
+
 
 void NoLR(struct node *root)
 {

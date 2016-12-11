@@ -30,22 +30,7 @@ int main()
 	insert(&head1, 4, 0, &count1);
 	insert(&head1, 4, 0, &count1);
 	insert(&head1, 3, 0, &count1);
-	insert(&head1, 3, 0, &count1);
-	insert(&head1, 3, 0, &count1);
-	insert(&head1, 2, 0, &count1);
-	insert(&head1, 2, 0, &count1);
-	insert(&head1, 1, 0, &count1);
-	insert(&head1, 1, 0, &count1);
-	insert(&head1, 1, 0, &count1);
-	insert(&head1, 1, 0, &count1);
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
+
 	del(&head1, count1-1, &count1);
 	del(&head1, count1-1, &count1);
 	del(&head1, count1-1, &count1);
