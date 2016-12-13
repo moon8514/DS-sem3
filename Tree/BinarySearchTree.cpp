@@ -32,10 +32,13 @@ int main()
 	insert(100, &tree);
 	insert(7, &tree);
 	insert(8, &tree);
+	insert(-1, &tree);
 //	printf("%d", findMax(tree)->data);
-//	NoLR(tree);
-	del(6, &tree);
 	NoLR(tree);
+	printf("\n");
+	del(10, &tree);
+	NoLR(tree);
+	printf("\n");
 	
 
 
@@ -121,10 +124,10 @@ void del(int data, struct node **root)
 	{
 		if((*root)->left && (*root)->right)
 		{
-			struct node *temp = (*root)->left;
-			temp = findMax(temp);
+			struct node *temp;
+			temp = findMax((*root)->left);
 			(*root)->data = temp->data;
-			del(temp->data, &temp);
+			del(temp->data, &((*root)->left));
 		}
 		else  //node la' hoac co 1 node con
 		{
