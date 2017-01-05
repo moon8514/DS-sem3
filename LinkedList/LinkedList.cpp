@@ -16,8 +16,8 @@ void removeDuplicate(struct node **head, int *count);//loi loi loi
 void copyList(struct node *head1, int count1, struct node **head2, int *count2);//
 void append(struct node **head1, int *count1,  struct node *head2);//
 void reverseList(struct node **head1, int count);//
-
-
+void countRun(struct node *head);
+bool isInc(struct node *head);
 
 int main()
 {
@@ -25,38 +25,44 @@ int main()
 	int count1;
 	init(&head1, &count1);
 //	printf("%d\n", isEmpty(head1));
-	
 //	for(int i=0; i<10; i++) insert(&head1, i, i, &count1);
-	insert(&head1, 4, 0, &count1);
+	insert(&head1, 5, 0, &count1);
+	insert(&head1, 6, 0, &count1);
+	insert(&head1, 5, 0, &count1);
 	insert(&head1, 4, 0, &count1);
 	insert(&head1, 3, 0, &count1);
-
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
-	del(&head1, count1-1, &count1);
+	insert(&head1, 2, 0, &count1);
 	insert(&head1, 1, 0, &count1);
-	printList(head1);
-	removeDuplicate(&head1, &count1);
-	
+	printList(head1);printf("\n");
+//
+//	del(&head1, count1-1, &count1);
+//	del(&head1, count1-1, &count1);
+//	del(&head1, count1-1, &count1);
+//	insert(&head1, 1, 0, &count1);
+//	printList(head1);
+//	removeDuplicate(&head1, &count1);
+//	printList(head1);
+	countRun(head1);
+	printf("Tang? %d\n", isInc(head1));
 //	printList(head1);
 	printf("\n");
 	
 //	printList(head1);
-
-	struct node *head2;
-	int count2;
-	init(&head2, &count2);
-	copyList(head1, count1, &head2, &count2);
-	printList(head2);
-	
-	printf("\n");
-	append(&head1, &count1, head2);
-	printList(head1);
-	printf("\n");
-	
-	reverseList(&head2, count2);
-	printf("Reverse list 2:");
-	printList(head2);
+//
+//	struct node *head2;
+//	int count2;
+//	init(&head2, &count2);
+//	copyList(head1, count1, &head2, &count2);
+//	printList(head2);
+//	
+//	printf("\n");
+//	append(&head1, &count1, head2);
+//	printList(head1);
+//	printf("\n");
+//	
+//	reverseList(&head2, count2);
+//	printf("Reverse list 2:");
+//	printList(head2);
 }
 
 void init(struct node **head, int *count)
@@ -267,6 +273,28 @@ void reverseList(struct node **head, int count)
 		del(head, delPosition, &count);
 	}
 }
+//
+//
+void countRun(struct node *head)
+{
+	struct node *cur = head;
+	
+	while(cur->next != NULL)
+	{
+		printf("%d ", cur->item);
+		if(cur->item > cur->next->item) printf("\n");
+		cur = cur->next;
+	}
+	printf("%d", cur->item);
+}
 
-
-
+bool isInc(struct node *head)
+{
+	struct node *cur = head;
+	while(cur->next != NULL)
+	{
+		if(cur->next->item < cur->item) return false;
+		cur = cur->next;
+	}
+	return true;
+}
